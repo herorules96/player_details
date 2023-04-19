@@ -2,21 +2,153 @@
   width: 1140px;
   max-width: 90%;
   margin: 0 auto;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.scroll-wrapper::-webkit-scrollbar {
+  width: 15px;
+  height: 8px;
+  background-color: #567d46;
+}
+
+.scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #323232;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.container::after {
+  content: "";
+  flex: auto;
 }
 
 .items {
-  flex-basis: calc(100% / 4);
+  flex-basis: calc(100% / 4 - 20px);
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  transition: 0.5s ease;
+  position: relative;
+  z-index: 100;
+}
+
+.items:hover {
+  box-shadow: -1px 7px 13px 0px rgb(0 0 0 / 52%);
+  position: relative;
+  z-index: 100;
+  transform: translateY(-8px);
+}
+
+.image-wrapper {
+  max-height: 255px;
+  overflow: hidden;
 }
 
 .player-image {
   width: 100%;
-  max-height: 284px;
-  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.container-fluid {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: url(../src/assets/football-ground-bg.jpg) center no-repeat;
+  background-size: cover;
 }
 
-/* #567d46 */
+.search-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.search-container input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid;
+  font-size: 20px;
+  outline: 0;
+  color: #323232;
+}
+
+.scroll-wrapper {
+  height: 80vh;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.details {
+  padding: 5px 10px 10px;
+}
+
+.details h3 {
+  margin: 0px 0 10px;
+}
+.details p {
+  margin: 0px 0 5px;
+  font-size: 15px;
+}
+
+.details span {
+  font-weight: 600;
+}
+
+.match-display {
+  display: flex;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #cdcdcd;
+}
+
+.match-display > div {
+  text-align: center;
+  padding: 2px;
+}
+
+.team {
+  flex-grow: 2;
+  background-color: #567d46;
+  color: #fff;
+}
+
+.vs {
+  flex-grow: 1;
+  border-top: 0;
+  border-bottom: 0;
+  line-height: 19px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.not-found {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+@media screen and (max-width: 900px) {
+  .items {
+    flex-basis: calc(100% / 3 - 20px);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .items {
+    flex-basis: 100%;
+  }
+
+  .search-container {
+    top: auto;
+    bottom: 0;
+  }
+}

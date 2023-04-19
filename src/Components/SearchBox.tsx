@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PlayerList } from "../ApiModel/Model";
 import PlayerContext from "../Contexts/PlayerContext";
+import { spanishToEnglish } from "../Utils/SpanishToEnglish";
 
 interface OwnProps {
   setPlayerList: (value: PlayerList[]) => void;
@@ -9,35 +10,37 @@ interface OwnProps {
 const SearchBox = (props: OwnProps) => {
   const { setPlayerList } = props;
   const { allPlayerList } = useContext(PlayerContext);
-  const [searchValue, serSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    let filtertedPlayers: PlayerList[] = [];
-    console.log(searchValue);
     if (searchValue) {
-      filtertedPlayers = allPlayerList.filter(
-        (player) =>
-          player.PFName.toLowerCase().includes(searchValue.toLowerCase()) ||
-          player.TName.toLowerCase().startsWith(searchValue.toLowerCase())
-      );
-    }
+      const value = searchValue.trim();
+      const filtertedPlayers = allPlayerList.filter((player) => {
+        const playerEnglishName = spanishToEnglish(player.PFName);
 
-    console.log("prashant", filtertedPlayers, searchValue);
+        return (
+          playerEnglishName.toLowerCase().includes(value.toLowerCase()) ||
+          player.TName.toLowerCase().startsWith(value.toLowerCase())
+        );
+      });
 
-    if (filtertedPlayers.length) {
-      setPlayerList(filtertedPlayers);
+      filtertedPlayers.length
+        ? setPlayerList(filtertedPlayers)
+        : setPlayerList([]);
     } else {
       setPlayerList(allPlayerList);
     }
   }, [allPlayerList, searchValue, setPlayerList]);
 
   return (
-    <div>
+    <div className="search-container">
       <input
         value={searchValue}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          serSearchValue(event.target.value)
+          setSearchValue(event.target.value)
         }
+        placeholder="Search Player..."
+        autoFocus
       />
     </div>
   );

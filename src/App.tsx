@@ -4,7 +4,7 @@ import PlayerDetails from "./Pages/PlayerDetails";
 
 function App() {
   return (
-    <div className="wrapper">
+    <div className="container-fluid">
       <PlayerContext.Provider value={{ allPlayerList: [] }}>
         <PlayerDetails />
       </PlayerContext.Provider>

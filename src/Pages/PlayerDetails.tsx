@@ -6,7 +6,7 @@ import SearchBox from "../Components/SearchBox";
 import PlayerContext from "../Contexts/PlayerContext";
 
 const PlayerDetails = () => {
-  const [playerDetails, setPlayDetails] = useState<PlayerList[]>();
+  const [playerDetails, setPlayDetails] = useState<PlayerList[]>([]);
   const playerContextDetails = useContext(PlayerContext);
   useEffect(() => {
     axios
@@ -16,11 +16,8 @@ const PlayerDetails = () => {
         setPlayDetails(response.playerList);
         playerContextDetails.allPlayerList = response.playerList;
       });
-  }, [playerContextDetails]);
-
-  if (!playerDetails?.length) {
-    return null;
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const removeDecimalFromValue = (str: string) =>
     Number(str.split(".").join(""));
@@ -40,21 +37,27 @@ const PlayerDetails = () => {
   };
 
   return (
-    <div>
-      <div className="container">
+    <div className="wrapper">
+      <div className="scroll-wrapper">
         <SearchBox setPlayerList={setPlayDetails} />
-        {sortPlayers(playerDetails).map((player) => {
-          return (
-            <PlayerCard
-              img={require(`../assets/player-images/${player.Id}.jpg`)}
-              name={player.PFName}
-              skills={player.SkillDesc}
-              upComingMatches={player.UpComingMatchesList}
-              value={player.Value}
-              key={player.Id}
-            />
-          );
-        })}
+        <div className="container">
+          {playerDetails.length ? (
+            sortPlayers(playerDetails).map((player) => {
+              return (
+                <PlayerCard
+                  img={require(`../assets/player-images/${player.Id}.jpg`)}
+                  name={player.PFName}
+                  skills={player.SkillDesc}
+                  upComingMatches={player.UpComingMatchesList}
+                  value={player.Value}
+                  key={player.Id}
+                />
+              );
+            })
+          ) : (
+            <div className="not-found">No Results Found</div>
+          )}
+        </div>
       </div>
     </div>
   );
