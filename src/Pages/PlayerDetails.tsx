@@ -15,6 +15,7 @@ const PlayerDetails = () => {
       .then((response: Root) => {
         setPlayDetails(response.playerList);
         playerContextDetails.allPlayerList = response.playerList;
+        playerContextDetails.loading = false;
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,7 +56,9 @@ const PlayerDetails = () => {
               );
             })
           ) : (
-            <div className="not-found">No Results Found</div>
+            <div className="not-found">
+              {playerContextDetails.loading ? "Loading..." : "No Results Found"}
+            </div>
           )}
         </div>
       </div>

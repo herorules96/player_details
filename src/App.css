@@ -34,19 +34,17 @@
   border: 1px solid #cdcdcd;
   border-radius: 5px;
   transition: 0.5s ease;
-  position: relative;
-  z-index: 100;
 }
 
 .items:hover {
   box-shadow: -1px 7px 13px 0px rgb(0 0 0 / 52%);
   position: relative;
-  z-index: 100;
+  z-index: 10;
   transform: translateY(-8px);
 }
 
 .image-wrapper {
-  max-height: 255px;
+  height: 255px;
   overflow: hidden;
 }
 
@@ -68,11 +66,12 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
 }
 
 .search-container input {
   width: 100%;
-  height: 30px;
+  height: 40px;
   border: 1px solid;
   font-size: 20px;
   outline: 0;
@@ -140,6 +139,10 @@
   .items {
     flex-basis: calc(100% / 3 - 20px);
   }
+
+  .image-wrapper {
+    height: 230px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -150,5 +153,9 @@
   .search-container {
     top: auto;
     bottom: 0;
+  }
+
+  .image-wrapper {
+    height: auto;
   }
 }

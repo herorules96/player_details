@@ -5,7 +5,7 @@ import PlayerDetails from "./Pages/PlayerDetails";
 function App() {
   return (
     <div className="container-fluid">
-      <PlayerContext.Provider value={{ allPlayerList: [] }}>
+      <PlayerContext.Provider value={{ allPlayerList: [], loading: true }}>
         <PlayerDetails />
       </PlayerContext.Provider>
     </div>
